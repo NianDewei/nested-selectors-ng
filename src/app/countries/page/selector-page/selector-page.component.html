@@ -1,0 +1,76 @@
+<h1 class="mt-5">Nested Selectors</h1>
+<hr />
+
+<form [formGroup]="formSelector" (ngSubmit)="save()">
+  <div class="row mb-3">
+    <div class="col-12 mb-2">
+      <label for="continent" class="form-label">Continent</label>
+      <select
+        title="select-continet"
+        class="form-select"
+        formControlName="region"
+      >
+        <!-- (click)="searchCountries()" -->
+        <option value="">** Select Continent ***</option>
+        <option *ngFor="let region of regions" [value]="region | lowercase">
+          {{ region }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-12 mb-2" *ngIf="countries.length > 0">
+      <label for="Countries" class="form-label">Countries</label>
+      <select
+        title="select-continet"
+        class="form-select"
+        formControlName="country"
+      >
+        <option value="" selected>** Select Country ***</option>
+        <option
+          *ngFor="let country of countries"
+          [value]="country.ccn3 | lowercase"
+        >
+          {{ country.name.common }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-12 mb-2" *ngIf="borders.length != 0">
+      <label for="Countries" class="form-label">Borders</label>
+      <select
+        title="select-border"
+        class="form-select"
+        formControlName="border"
+      >
+        <option value="" selected>** Select border **</option>
+        <option *ngFor="let country of borders" [value]="country.ccn3">
+          {{ country.name.common }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-12 mb-2" *ngIf="loading">
+      <div class="d-flex align-items-center">
+        <strong class="text-primary">Loading...</strong>
+        <div
+          class="spinner-border ms-auto text-primary"
+          role="status"
+          aria-hidden="true"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button title="save" type="submit" class="btn btn-primary float-end">
+        Save
+      </button>
+    </div>
+  </div>
+</form>
+
+<hr />
+<h3>Form</h3>
+<pre> {{ formSelector.valid | json }}</pre>
+<pre> {{ formSelector.value | json }}</pre>
